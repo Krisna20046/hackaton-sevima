@@ -2,8 +2,10 @@
 @section('title', 'Hackaton - Home')
 
 @section('content')
-    <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-4">Selamat Datang</h1>
-        <p class="text-lg">Selamat datang di website Hackaton!</p>
-    </div>
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <div>Selamat Datang Di Hackaton</div>
+                    </div>
+                </main>
 @endsection

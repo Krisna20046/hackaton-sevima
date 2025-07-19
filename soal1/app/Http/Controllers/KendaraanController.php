@@ -19,25 +19,40 @@ class KendaraanController extends Controller
             $kendaraan = Kendaraan::paginate(5);
             return response()->json($kendaraan);
         }
-        
-        // $kendaraan = Kendaraan::whereRaw("LOWER(merk) LIKE ?", ["%{$query}%"])
-        //     ->orWhereRaw("LOWER(tipe) LIKE ?", ["%{$query}%"])
-        //     ->orWhereRaw("LOWER(transmisi) LIKE ?", ["%{$query}%"])
-        //     ->orWhereRaw("LOWER(warna) LIKE ?", ["%{$query}%"])
-        //     ->orWhereRaw("LOWER(jenis_bahan_bakar) LIKE ?", ["%{$query}%"])
-        //     ->paginate(5);
 
         try {
-            $kendaraan = DB::table('kendaraans')
-                ->select('kendaraans.*')
-                ->selectRaw('ts_rank(searchable_text, plainto_tsquery(?)) AS relevance', [$query])
-                ->whereRaw("searchable_text @@ plainto_tsquery(?)", [$query])
-                ->orderBy('relevance', 'desc')
+            // $kendaraan = DB::table('kendaraans')
+            //     ->select('kendaraans.*')
+            //     ->orderByRaw("
+            //         CASE
+            //             WHEN LOWER(merk) LIKE ? THEN 1
+            //             WHEN LOWER(tipe) LIKE ? THEN 2
+            //             WHEN LOWER(transmisi) LIKE ? THEN 3
+            //             WHEN LOWER(warna) LIKE ? THEN 4
+            //             WHEN LOWER(jenis_bahan_bakar) LIKE ? THEN 5
+            //             ELSE 6
+            //         END", ["%{$query}%", "%{$query}%", "%{$query}%", "%{$query}%", "%{$query}%"])
+            //     ->paginate(5);
+
+            $kendaraan = Kendaraan::whereRaw("LOWER(merk) LIKE ?", ["%{$query}%"])
+                ->orWhereRaw("LOWER(tipe) LIKE ?", ["%{$query}%"])
+                ->orWhereRaw("LOWER(transmisi) LIKE ?", ["%{$query}%"])
+                ->orWhereRaw("LOWER(warna) LIKE ?", ["%{$query}%"])
+                ->orWhereRaw("LOWER(jenis_bahan_bakar) LIKE ?", ["%{$query}%"])
                 ->paginate(5);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Invalid query'], 400);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Invalid query'], 400);
         }
 
+        return response()->json($kendaraan);
+    }
+
+    public function kendaraan_detail($id)
+    {
+        $kendaraan = Kendaraan::find($id);
+        if (!$kendaraan) {
+            return response()->json(['error' => 'Kendaraan not found'], 404);
+        }
         return response()->json($kendaraan);
     }
 

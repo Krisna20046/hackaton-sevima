@@ -8,21 +8,33 @@
     <div class="flex items-center mb-4">
         <input type="text" id="search" class="w-full px-4 py-2 rounded-lg border border-gray-300" placeholder="Cari">
     </div>
-    <table class="table-auto w-full mb-4">
-        <thead>
-            <tr class="bg-gray-200">
-                <th class="px-4 py-2">Merk</th>
-                <th class="px-4 py-2">Tipe</th>
-                <th class="px-4 py-2">Transmisi</th>
-                <th class="px-4 py-2">Warna</th>
-                <th class="px-4 py-2">Tanggal Pembuatan</th>
-                <th class="px-4 py-2">Jenis Bahan Bakar</th>
-            </tr>
-        </thead>
-        <tbody id="kendaraan-list">
-        </tbody>
-    </table>
-    <div class="flex justify-center" id="pagination">
+    <div class="d-flex">
+        <div class="split-left" style="width: 50%">
+            <div class="card-body">
+                <table class="table-auto w-full mb-4">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2">Merk</th>
+                            {{-- <th class="px-4 py-2">Tipe</th>
+                            <th class="px-4 py-2">Transmisi</th>
+                            <th class="px-4 py-2">Warna</th>
+                            <th class="px-4 py-2">Tanggal Pembuatan</th>
+                            <th class="px-4 py-2">Jenis Bahan Bakar</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody id="kendaraan-list">
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex justify-center" id="pagination">
+            </div>
+        </div>
+        <div class="split-right" style="width: 50%">
+            <div class="card-body">
+                <h2 class="text-2xl font-bold mb-4">Detail Kendaraan</h2>
+                <p id="kendaraan-detail" class="text-gray-700">Pilih kendaraan untuk melihat detailnya.</p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -41,6 +53,19 @@ searchInput.addEventListener('input', function() {
     }, 500);
 });
 
+function showDetail(id) {
+    fetch(`/api/kendaraan/${id}`, {
+        method: 'POST',
+    })
+        .then(response => response.json())
+        .then(data => {
+            const kendaraanDetail = document.getElementById('kendaraan-detail');
+            kendaraanDetail.innerHTML = `
+                <p>Kendaraan dengan merk ${data.merk} memiliki tipe ${data.tipe}, transmisi ${data.transmisi}, warna ${data.warna}, tanggal pembuatan ${data.tanggal_pembuatan}, dan jenis bahan bakar ${data.jenis_bahan_bakar}.</p>
+            `;
+        });
+}
+
 function fetchKendaraan(query = '', page = 1) {
     const formData = new FormData();
     formData.append('search', query);
@@ -58,12 +83,7 @@ function fetchKendaraan(query = '', page = 1) {
             data.data.forEach(kendaraan => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="px-4 py-2">${kendaraan.merk}</td>
-                    <td class="px-4 py-2">${kendaraan.tipe}</td>
-                    <td class="px-4 py-2">${kendaraan.transmisi}</td>
-                    <td class="px-4 py-2">${kendaraan.warna}</td>
-                    <td class="px-4 py-2">${kendaraan.tanggal_pembuatan}</td>
-                    <td class="px-4 py-2">${kendaraan.jenis_bahan_bakar}</td>
+                    <td class="px-4 py-2"><a href="#" class="text-blue-500 hover:text-blue-700" onclick="showDetail(${kendaraan.id})">${kendaraan.merk}</a></td>
                 `;
                 kendaraanList.appendChild(row);
             });
