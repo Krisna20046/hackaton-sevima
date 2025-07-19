@@ -1,0 +1,19 @@
+Toyota|Corolla|Automatic|White|2020-01-01|Gasoline
+Honda|Civic|Manual|Red|2019-06-01|Gasoline
+Suzuki|Swift|Automatic|Blue|2021-03-01|Gasoline
+Ford|Mustang|Automatic|Green|2020-06-01|Gasoline
+Chevrolet|Camaro|Manual|Yellow|2019-12-01|Gasoline
+Nissan|Altima|Automatic|Purple|2021-01-01|Gasoline
+BMW|X5|Automatic|Black|2020-08-01|Gasoline
+Audi|A4|Manual|Silver|2019-02-01|Gasoline
+Mercedes-Benz|E-Class|Automatic|White|2020-04-01|Gasoline
+Toyota|Camry|Manual|Black|2019-07-01|Gasoline
+Honda|Accord|Automatic|Silver|2021-05-01|Gasoline
+Ford|F-150|Manual|Blue|2020-11-01|Gasoline
+Chevrolet|Impala|Automatic|Red|2019-10-01|Gasoline
+Nissan|Maxima|Manual|Green|2021-02-01|Gasoline
+BMW|3 Series|Automatic|Gray|2020-09-01|Gasoline
+Audi|Q7|Manual|White|2019-05-01|Gasoline
+Hyundai|Elantra|Automatic|Orange|2021-06-01|Gasoline
+Kia|Sorento|Manual|Brown|2020-03-01|Gasoline
+Volkswagen|Passat|Automatic|Purple|2019-01-01|Gasoline
